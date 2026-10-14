@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "DeploymentManifest",
+  "execution": {
+    "backend": "generic-oci",
+    "buildNetworkMode": "NONE",
+    "targetPlatform": {
+      "os": "linux",
+      "architecture": "amd64"
+    }
+  },
+  "services": [
+    {
+      "id": "web",
+      "kind": "HTTP_WEB",
+      "root": ".",
+      "port": {
+        "mode": "environment",
+        "variable": "PORT"
+      },
+      "healthPath": "/healthz"
+    }
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "serviceId": "web"
+    }
+  ],
+  "resources": {
+    "postgres": {
+      "required": false
+    }
+  }
+}
